@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Plagiarism Checker</title>
+    <!-- Bootstrap links -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+        integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../homepage.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar bg-dark">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1" style="color:white;">Code Plagiarism Checker</span>
+            </div>
+        </nav>
+    </header>
+    <main style="width:100%;">
+        <h2 style="display:flex;justify-content: center;align-items: center;margin-top: 20px;">
+            <ul style="margin-right:20px;">Kindly Upload Text File</ul>
+            <ul>
+                <li style="margin-right:20px;margin-left: 20px;">Click on Submit</li>
+            </ul>
+            <ul>
+                <li style="margin-left: 20px;">Check the Estimated Groups</li>
+            </ul>
+        </h2>
+        <!-- <h6 style="display:flex;justify-content: center;align-items: center;">
+            <ul>Amey Agarwal</ul>
+            <ul>
+                <li>Faiz Khan</li>
+            </ul>
+            <ul>
+                <li>Kevin Suvarna</li>
+            </ul>
+        </h6> -->
+        <!-- <div style="width:40%;float:right;">
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Strictness of Checking
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" value="0.3">0.3</a></li>
+                        <li><a class="dropdown-item" value="0.6">0.6</a></li>
+                        <li><a class="dropdown-item" value="0.9">0.9</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+        <form>
+            <div style="width:100%;">
+                <div style="width:80%;display:flex;justify-content: center;align-items: center;margin-left: 50px;">
+                    <!-- <input class="choosefilebutton1" type="file" id="myFile1" name="filename1" accept=".zip"> -->
+                    <label for="" class="drop-container">
+                        <span class="drop-title">Upload files here</span>
+                        <!-- or -->
+                        <input type="file" name="file" id="files" multiple>
+                    </label>
+                    <!-- <div style="color:black;">
+                            <p id="fileText1"></p></div> -->
+                    <div style="width:60%;margin-left:20px;" id="group">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button id="button" type="submit">SUBMIT</button>
+                <!-- <h1>Estimated Checking Time</h1> -->
+            </div>
+        </form>
+    </main>
+    <!-- <button style="position:inherit;" class="uploadbutton1" type="submit" onclick="upload1()">Upload1</button> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script> -->
+    <script>
+        function groupItems(arg) {
+            let items = "";
+            for (let i = 0; i < arg.length; i++) {
+                // items += `<li>${arg[i]}</li>`;
+                items += `
+                <p><a class="btn style-btn" data-bs-toggle="collapse" href="#multiCollapseExample${i + 1}" role="button" aria-expanded="false" aria-controls="multiCollapseExample${i + 1}">Group ${i + 1}</a></p>
+                          <div>
+                            <div class="col">
+                              <div class="collapse multi-collapse" id="multiCollapseExample${i + 1}">
+                                <div class="card card-body">
+                                    ${arg[i]}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                `;
+            }
+            return items;
+        }
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Prevents HTML handling submission
+            //const name = document.getElementById("name");
+            const files = document.getElementById("files");
+            const formData = new FormData();
+            // Creates empty formData object
+            //formData.append("name", name.value);
+            // Appends value of text input
+            for (let i = 0; i < files.files.length; i++) {
+                formData.append("files", files.files[i]);
+            }
+            console.log(formData)
+            console.log(...formData);
+            // Appends value(s) of file input
+            // Post data to Node and Express server:
+            fetch('http://127.0.0.1:5000/api', {
+                method: 'POST',
+                body: formData, // Payload is formData object
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById("group").innerHTML = `
+                        ${groupItems(data)}
+                        `;
+                    //document.getElementById("group").textContent = data;
+
+                });
+        })
+    </script>
+</body>
+
+
+</html>

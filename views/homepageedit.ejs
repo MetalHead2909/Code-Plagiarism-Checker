@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Plagiarism Checker</title>
+    <!-- Bootstrap links -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+        integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../homepage.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar bg-dark">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1" style="color:white;">Code Plagiarism Checker</span>
+            </div>
+        </nav>
+    </header>
+    <main style="width:100%;">
+        <h2 style="display:flex;justify-content: center;align-items: center;">
+            <ul>Kindly Upload Zip File</ul>
+            <ul>
+                <li>Choose Strictness of Checking</li>
+            </ul>
+            <ul>
+                <li>Check the Estimated Groups</li>
+            </ul>
+        </h2>
+        <div style="width:100%;">
+            <div>
+                <p>Strictness of Checking:<input type="text"></p>
+            </div>
+        </div>
+        <form>
+            <div style="width:100%;">
+                <div style="width:50%;display:flex;justify-content: center;align-items: center;margin-right: 50px;">
+                    <!-- <input class="choosefilebutton1" type="file" id="myFile1" name="filename1" accept=".zip"> -->
+                    <label for="" class="drop-container">
+                        <span class="drop-title">Upload files here</span>
+                        <!-- or -->
+                        <input type="file" name="file" id="files" multiple>
+                    </label>
+                    <!-- <div style="color:black;">
+                            <p id="fileText1"></p></div> -->
+                </div>
+                <div style="width:60%;"></div>
+            </div>
+            <div>
+                <!-- <button style="position:inherit;" class="uploadbutton1" type="submit">Upload1</button>
+                <button style="position:inherit;" class="uploadbutton2 visibility-div" disabled>Checking</button> -->
+                <button id="button" type="submit" disbaled>CHECKED</button>
+                <h1><%= groupingresults %></h1>
+                <!-- <h1>Estimated Checking Time</h1> -->
+            </div>
+        </form>
+    </main>
+    <!-- <button style="position:inherit;" class="uploadbutton1" type="submit" onclick="upload1()">Upload1</button> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script> -->
+        <!-- <script>
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Prevents HTML handling submission
+                //const name = document.getElementById("name");
+                const files = document.getElementById("files");
+                const formData = new FormData();
+                // Creates empty formData object
+                //formData.append("name", name.value);
+                // Appends value of text input
+                for (let i = 0; i < files.files.length; i++) {
+                    formData.append("files", files.files[i]);
+                }
+                console.log(formData)
+                console.log(...formData);
+                // Appends value(s) of file input
+                // Post data to Node and Express server:
+                fetch('http://127.0.0.1:5000/api', {
+                    method: 'POST',
+                    body: formData, // Payload is formData object
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data));
+            })
+        </script> -->
+</body>
+
+</html>
