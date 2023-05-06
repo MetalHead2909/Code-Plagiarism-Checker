@@ -7,11 +7,6 @@ app = Flask(__name__)
 @app.route('/predict',methods=['POST'])
 def predict():
     data = request.get_json(force=True)
-    #results = []
-    #for i in data:
-        #results.append(data[i])
-    #print(type(data))
-    #print(results)
     results = codingplagiarismcheck()
     print(results)
     return jsonify(results), 200, {'Content-Type':'application/json'}

@@ -164,7 +164,15 @@ def codingplagiarismcheck():
         for j in i:
             tempdocresult.append(sample_files[j-1])
         docresult.append(tempdocresult)
-    print(result)
-    print(sample_files)
-    print(docresult)
+    for i in range(len(sample_files)):
+        if os.path.exists(sample_files[i]):
+            os.remove(sample_files[i])
+    #     import os
+    # if os.path.exists("demofile.txt"):
+    #   os.remove("demofile.txt")
+    # else:
+    #   print("The file does not exist")
+    #print(result)
+    #print(sample_files)
+    #print(docresult)
     return docresult

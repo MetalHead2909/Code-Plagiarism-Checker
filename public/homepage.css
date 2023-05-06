@@ -1,10 +1,6 @@
 .visibility-div{
     visibility: hidden;
 }
-/* body { */
-    /* margin: 20px 60px; */
-  /* } */
-
   .drop-container {
     position: relative;
     display: flex;
