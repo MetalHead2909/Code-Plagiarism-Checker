@@ -65,6 +65,18 @@
                         <span class="drop-title">Upload files here</span>
                         <!-- or -->
                         <input type="file" name="file" id="files" multiple>
+
+                        <div class="btn-group">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                             <%= languageChosen %>
+                            </button>
+                            <ul class="dropdown-menu" style="text-align: center;">
+                                <li onclick="languageselect(1)">Java&emsp;&emsp;<span id="includeJava" class="visibility-div">✔️</span></li>
+                                <li onclick="languageselect(2)">Python&ensp;&ensp;<span id="includePython" class="visibility-div">✔️</span></li>
+                                <li onclick="languageselect(3)">C&emsp;&emsp;&emsp;<span id="includeC" class="visibility-div">✔️</span></li>
+                            </ul>
+                          </div>
+
                     </label>
                     <!-- <div style="color:black;">
                             <p id="fileText1"></p></div> -->
@@ -83,6 +95,28 @@
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script> -->
     <script>
+        var check = 1;
+        function languageselect(ch){
+            if (ch==1){
+                document.getElementById("includeJava").classList.remove("visibility-div");
+                document.getElementById("includePython").classList.add("visibility-div");
+                document.getElementById("includeC").classList.add("visibility-div");
+                check = 1;
+            }
+            if (ch==2){
+                document.getElementById("includeJava").classList.add("visibility-div");
+                document.getElementById("includePython").classList.remove("visibility-div");
+                document.getElementById("includeC").classList.add("visibility-div");
+                check = 2;
+            }
+            if (ch==3){
+                document.getElementById("includeJava").classList.add("visibility-div");
+                document.getElementById("includePython").classList.add("visibility-div");
+                document.getElementById("includeC").classList.remove("visibility-div");
+                check = 3;
+            }
+        }
+
         function groupItems(arg) {
             let items = "";
             for (let i = 0; i < arg.length; i++) {
@@ -118,11 +152,15 @@
             }
             console.log(formData)
             console.log(...formData);
+            formData.append("files",check);
+            console.log('formData:',formData)
+            console.log(...formData);
             // Appends value(s) of file input
             // Post data to Node and Express server:
             fetch('http://127.0.0.1:5000/api', {
                 method: 'POST',
                 body: formData, // Payload is formData object
+                checked: check,
             })
                 .then(res => res.json())
                 .then(data => {

@@ -6,9 +6,13 @@ app = Flask(__name__)
 
 @app.route('/predict',methods=['POST'])
 def predict():
+    #1 - Java , 2 - Python , 3 - C
     data = request.get_json(force=True)
-    results = codingplagiarismcheck()
-    print(results)
+    print('data:',data)
+    check = int(data['checked'])
+    print(check)
+    results = codingplagiarismcheck(check)
+    #print(results)
     return jsonify(results), 200, {'Content-Type':'application/json'}
 
 if __name__=='__main__':

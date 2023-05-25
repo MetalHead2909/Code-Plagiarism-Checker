@@ -13,7 +13,7 @@ app.use(express.static(__dirname+"/public"));
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, __dirname);
+        callback(null, __dirname+"/uploads");
     },
     // Sets file(s) to be saved in folder in same directory
     filename: function (req, file, callback) {
@@ -27,15 +27,26 @@ const upload = multer({ storage: storage })
 
 
 app.get("/", function(req, res){
-    res.render("homepage",{});
+    const lang = "Choose Language";
+    res.render("homepage",{ languageChosen: lang});
 });
 
 app.post("/api", upload.array("files"), (req, res) => {
     // Sets multer to intercept files named "files" on uploaded form data
-    console.log(req.body); // Logs form body values
-    console.log(req.files); // Logs any files
-    var data={};
-    fetch('http://127.0.0.1:3000/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(response => response.json())
+    //console.log(req)
+    console.log(req.body)
+    console.log(req.body.files); // Logs form body values
+    //console.log('check value:',req.checked);
+    //console.log(req.files); // Logs any files
+    var data={checked:req.body.files};
+    fetch('http://127.0.0.1:3000/predict',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data),
+        // checked:JSON.stringify(data),
+    }).then(response => response.json())
     .then(result => {
         console.log(result); 
         res.json(result);
