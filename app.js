@@ -31,6 +31,29 @@ app.get("/", function(req, res){
     res.render("homepage",{ languageChosen: lang});
 });
 
+app.get("/doccompare",function(req,res){
+    res.render("doccompare",{})
+})
+
+app.post("/analysis",upload.array("pair"),function(req,res){
+    console.log("app.js:",req.body.pair)
+    var data={pair:req.body.pair};
+    fetch('http://127.0.0.1:3000/doccompare',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data),
+        // checked:JSON.stringify(data),
+    }).then(response => response.json())
+    .then(result => {
+        //console.log(result); 
+        res.json(result);
+    })
+        .catch(error => console.log('Error Passing JSON: ',error));
+    // res.json("Hello from app.js")
+})
+
 app.post("/api", upload.array("files"), (req, res) => {
     // Sets multer to intercept files named "files" on uploaded form data
     //console.log(req)

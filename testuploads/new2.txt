@@ -1,0 +1,45 @@
+def calculate(x,w):
+  res = 0
+  for i in range(len(x)):
+    res += x[i]*w[i]
+  return res
+w = [1,1]
+threshold = 2
+print("AND Gate:")
+print("     yin   Y")
+for i in [0,1]:
+  for j in [0,1]:
+    x = [i,j]
+    yin = calculate(x,w)
+    Y = 1 if yin>=threshold else 0
+    print(i,j," ",yin,"  ",Y)
+w = [1,1]
+threshold = 1
+print("OR Gate:")
+print("     yin   Y")
+for i in [0,1]:
+  for j in [0,1]:
+    x = [i,j]
+    yin = calculate(x,w)
+    Y = 1 if yin>=threshold else 0
+    print(i,j," ",yin,"  ",Y)
+w = [-1,-1]
+threshold = -1
+print("NAND Gate:")
+print("     yin   Y")
+for i in [0,1]:
+  for j in [0,1]:
+    x = [i,j]
+    yin = calculate(x,w)
+    Y = 1 if yin>=threshold else 0
+    print(i,j," ",yin,"  ",Y)
+w = [-1,-1]
+threshold = 0
+print("NOR Gate:")
+print("     yin   Y")
+for i in [0,1]:
+  for j in [0,1]:
+    x = [i,j]
+    yin = calculate(x,w)
+    Y = 1 if yin>=threshold else 0
+    print(i,j," ",yin,"  ",Y)

@@ -7,5 +7,7 @@ To run the code
 2. make a file called 'uploads'
 3. In terminal, run : npm i 
 4. In termina, run : node app.js
-5. In another terminal, run: python app.py
-6. Go to localhost:5000 
+5. Make a VirtualEnv and source virtualenv
+6. In another terminal, run: python app.py
+7. Go to localhost:5000 
+

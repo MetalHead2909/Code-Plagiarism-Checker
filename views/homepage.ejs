@@ -89,6 +89,58 @@
                 <!-- <h1>Estimated Checking Time</h1> -->
             </div>
         </form>
+        <section>
+            <nav class="navbar bg-dark">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h1" style="color:white;">Analysis of Uploads</span>
+                </div>
+            </nav>
+
+            <div style="display: flex;">
+                <div style="width:40%">
+                    <div style="margin-left:20px;margin-top: 20px;" id="group2">
+                        <!-- <p><a class="btn style-btn" data-bs-toggle="collapse" href="#multiCollapseExample0" role="button" aria-expanded="true" aria-controls="multiCollapseExample0">Group 0</a></p>
+                        <div>
+                            <div class="col">
+                              <div class="multi-collapse collapse show" id="multiCollapseExample0" style="">
+                                <div class="card card-body " style="display: flex; flex-direction: column; gap: 10px;">
+                                    <p>Text1</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text1 - text2</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text1 - text3</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text1 - text4</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text1 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text1 - text6</a>
+                                    </div>
+                                    <p>Text2</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text2 - text3</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text2 - text4</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text2 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text2 - text6</a>
+                                    </div>
+                                    <p>Text3</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text3 - text4</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text3 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text3 - text6</a>
+                                    </div>
+                                    <p>Text4</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text4 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;">text4 - text6</a>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>   -->
+                    </div>
+                </div>
+                <div style="width: 60%;margin-left:20px;margin-top: 20px;justify-content: center;align-items: center;" id="analysis">
+                    <h5 style="color: gray;">Click on pairs for analysis</h5>
+                </div>
+            </div>
+        </section>
     </main>
     <!-- <button style="position:inherit;" class="uploadbutton1" type="submit" onclick="upload1()">Upload1</button> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
@@ -137,6 +189,131 @@
             return items;
         }
 
+        function generatePairs(arr) {
+                let result = [];
+                let n = arr.length;
+                
+                for (let i = 0; i < n; i++) {
+                    let pairs = [];
+                    for (let j = i + 1; j < n; j++) {
+                        pairs.push(`${arr[i]}-${arr[j]}`);
+                    }
+                    if (pairs.length > 0) {
+                        result.push(pairs);
+                    }
+                }
+                
+                return result;
+            }
+
+            function groupItemsAnalysis(arg) {
+                let items = "";
+                for (let i = 0; i < arg.length; i++) {
+                    let pairs = generatePairs(arg[i]);
+                    console.log("Gen Pair "+i+": ",pairs)
+                    items += `
+            <p><a class="btn style-btn" data-bs-toggle="collapse" href="#multiCollapseExample${i + 1}" role="button" aria-expanded="false" aria-controls="multiCollapseExample${i + 1}">Group ${i + 1}</a></p>
+            <div>
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample${i + 1}">
+                <div class="card card-body" style="display: flex; flex-direction: column; gap: 10px;">
+                    ${arg[i].map((text, index) => `
+                    <p>${text}</p>
+                    ${pairs[index] ? `
+                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%; overflow-x: auto;">
+                    ${pairs[index].map(pair => `
+                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('${pair}')">${pair}</a>
+                    `).join('')}
+                    </div>` : ''}
+                    `).join('')}
+                </div>
+                </div>
+            </div>
+            </div>`;
+                }
+                return items;
+            }
+
+        function docCompare(pair){
+            console.log(pair)
+            getCode(pair)
+        }
+
+        function getCode(pair){
+            item = []
+            const formData = new FormData();
+            formData.append("pair", pair);
+            var data={docs:pair};
+            fetch('http://127.0.0.1:5000/analysis', {
+                method: 'POST',
+                body: formData, // Payload is formData object
+            })
+                .then(res => res.json())
+                .then(data => {
+                    //console.log("doccompare.ejs:",data)
+                    // document.getElementById("analysis").innerHTML = `
+                    //     ${groupItemsAnalysis(data)}
+                    //     `;
+                    item = [data[0],data[1],data[2]]
+                    file1_html = item[0]
+            file2_html = item[1]
+            similarities = item[2]
+            pairlist = pair.replace(/\s/g, "").split("-")
+
+            extraitem = ""
+            for(let i =0; i<similarities.length; i++){
+                extraitem += `
+                <div class="bar-container" style="width: 100%;background-color: #ddd;border-radius: 5px;margin-bottom: 10px;overflow: hidden;">
+                    <div class="bar" id="bar${i+1}" style="width:0%;height: 30px;background-color: red;text-align: right;line-height: 30px;color: white;border-radius: 5px;"><span class="number" id="number${i+1}" style="padding-left: 10px;font-weight: bold;">0</span></div>
+                </div>`;
+            }
+            document.getElementById("analysis").innerHTML = `
+                <div class="container" style="display: flex;justify-content: space-between;">
+                    <div style="width: 48%;">
+                        <span style="background-color:black;color:white;justify-content:center;align-items:center;display: flex;">${pairlist[0]}</span>
+                    </div>
+                    <div style="width: 48%;">
+                        <span style="background-color:black;color:white;justify-content:center;align-items:center;display: flex;">${pairlist[1]}</span>
+                    </div>
+                </div>
+                <div class="container" style="display: flex;justify-content: space-between;">
+                    <div class="code-box" style="width: 48%;height: 500px;overflow-y: scroll;white-space: pre-wrap;background-color: #f5f5f5;padding: 10px;border: 1px solid #ddd;box-sizing: border-box;">${file1_html}</div>
+                    <div class="code-box" style="width: 48%;height: 500px;overflow-y: scroll;white-space: pre-wrap;background-color: #f5f5f5;padding: 10px;border: 1px solid #ddd;box-sizing: border-box;">${file2_html}</div>
+                </div>
+                <div>
+                    <div class="container2" style="width: 100%;padding: 20px;">
+                        <h3>Similarities detected in order:</h3>
+                        ${extraitem}
+                    </div>
+                </div>`;
+                for(let i =0; i<similarities.length; i++){
+                    animateBar('bar'+(i+1), 'number'+(i+1), similarities[i], 2000);
+                }
+                    //console.log(item)
+                });
+            //return item
+        }
+
+        function animateBar(barId, numberId, value, duration) {
+            let bar = document.getElementById(barId);
+            let number = document.getElementById(numberId);
+            let start = 0;
+            let end = value;
+            let increment = end / (duration / 10);
+
+            function updateBar() {
+                start += increment;
+                if (start >= end) {
+                    start = end;
+                    clearInterval(interval);
+                }
+                bar.style.width = start + "%";
+                number.textContent = start.toFixed(2);
+            }
+            
+            let interval = setInterval(updateBar, 10);
+        }
+
         const form = document.querySelector('form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -167,6 +344,9 @@
                     console.log(data);
                     document.getElementById("group").innerHTML = `
                         ${groupItems(data)}
+                        `;
+                    document.getElementById("group2").innerHTML = `
+                        ${groupItemsAnalysis(data)}
                         `;
                     //document.getElementById("group").textContent = data;
 

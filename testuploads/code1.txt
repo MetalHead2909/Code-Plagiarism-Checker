@@ -1,0 +1,16 @@
+def returnAgg(x1, x2):
+	return np.dot(x1, x2)
+
+def f(threshold, g):                     #Activation Function
+	return 1 if g >= threshold else 0
+
+def validateResult(ans, target):
+	valid = True
+	if ans != target:
+		valid = False
+	return valid
+x=int(input())
+for i in range(x):
+    a=int(input())
+    v.append(a)
+    U=sum(v)

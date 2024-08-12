@@ -1,0 +1,67 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+#Logical AND
+y=0
+v=[]
+x=int(input())
+for i in range(x):
+    a=int(input())
+    v.append(a)
+    U=sum(v)
+if U>=x:
+    print(1)
+else:
+    print(0)
+#Logical OR
+y=0
+v=[]
+x=int(input())
+for i in range(x):
+    a=int(input())
+    v.append(a)
+    U=sum(v)
+if U>0:
+    print(1)
+else:
+    print(0)
+#Logical NOR
+y=0
+v=[]
+x=int(input())
+for i in range(x):
+    a=int(input())
+    v.append(a)
+    U=sum(v)
+if U>0:
+    print(0)
+else:
+    print(1)
+#Logical NOT
+def logicalNOT(x):
+  w = np.array([-1])
+  v=np.dot(w,x)
+  return 1 if v >=0 else 0
+print(logicalNOT(np.array([1])))
+print(logicalNOT(np.array([0])))
+#Logical NAND
+y=0
+v=[]
+x=int(input())
+for i in range(x):
+    a=int(input())
+    v.append(a)
+    U=sum(v)
+if U>=x:
+    print(0)
+else:
+    print(1)
+def logicFun(x):
+    w = np.array([1, -1])
+    v=np.dot(w,x)
+    threshold = 1
+    return 1 if v>=threshold else 0
+print(logicFun(np.array([1,1])))
+print(logicFun(np.array([0,1])))
+print(logicFun(np.array([1,0])))
+print(logicFun(np.array([0,0])))

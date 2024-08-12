@@ -1,0 +1,99 @@
+"""Experminent 1: To implement MP neuron model
+	Name: Aditya Krishna Jikamade
+	UID No: 2020300024
+	Branch: TE Comps
+"""
+import numpy as np
+import math
+
+def returnAgg(x1, x2):
+	return np.dot(x1, x2)
+
+def f(threshold, g):                     #Activation Function
+	return 1 if g >= threshold else 0
+
+def validateResult(ans, target):
+	valid = True
+	if ans != target:
+		valid = False
+	return valid
+
+def activateNeuron(threshold, weights, inpTable, target):
+	ans = []
+	dotP = returnAgg(inpTable, weights)         #This line evaluates x1 * w1 + x2 * w2 + ... + xn * wn using dot product
+
+	for i in range(len(inpTable)):
+		activation = f(threshold, dotP[i])      #Calculating the output value using the aggregate sum of inputs and decided threshold for the gate
+		ans.append(activation)
+		
+		print(f" {inpTable[i][0]} | {inpTable[i][1]} | {activation}")
+
+	if validateResult(ans, target):         #Validating results with predefined output
+		print("Results verified")
+	else:
+		print("Error")
+
+
+#Driver
+if __name__ == '__main__':
+	ans = []
+	inpTable = np.array([[0, 0],     #Input array containing all possible combinations of inputs
+		  				[0, 1], 
+						[1, 0], 
+      					[1, 1]])
+	
+	andResult = [0, 0, 0, 1]
+	orResult = [0, 1, 1, 1]
+	notResult = [1, 0]
+	nandResult = [1, 1, 1, 0]
+	norResult = [1, 0, 0, 0]
+
+
+	thresholdOR = 1
+	thresholdAND = 2
+	thresholdNOR = 0
+	thresholdNAND = -1
+	thresholdNOT = 0
+
+	#Realizing OR gate
+	print("\nRealization of OR gate")
+	print("x1 | x2 | y")
+	print("------------")
+	activateNeuron(thresholdOR, np.array([1, 1]), inpTable, orResult)
+
+	
+	#Realizing AND gate
+	print("\nRealization of AND gate")
+	print("x1 | x2 | y")
+	print("------------")
+	activateNeuron(thresholdAND, np.array([1, 1]), inpTable, andResult)
+
+	
+	#Realizing NOR gate
+	print("\nRealization of NOR gate")
+	print("x1 | x2 | y")
+	print("------------")
+	activateNeuron(thresholdNOR, np.array([-1, -1]), inpTable, norResult)
+
+	#Realizing NAND gate
+	print("\nRealization of NAND gate")
+	print("x1 | x2 | y")
+	print("------------")
+	activateNeuron(thresholdNAND, np.array([-1, -1]), inpTable, nandResult)
+
+
+	#Realizing NOT gate
+	x = np.array([0, 1])
+	weights = np.array([-1, -1])
+
+	print("\nRealization of NOT gate")
+	print(" x | y")
+	print("------------")
+	for i in range(len(x)):
+		activation = f(thresholdNOT, x[i] * weights[i])
+		print(f" {x[i]} | {activation}")
+		ans.append(activation)
+	if validateResult(ans, notResult):
+		print("Results verified")
+	else:
+		print("Error")

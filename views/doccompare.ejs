@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Doc Compare</title>
+    <!-- Bootstrap links -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+        integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../homepage.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar bg-dark">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1" style="color:white;">Doc Compare</span>
+            </div>
+        </nav>
+    </header>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .code-box {
+            width: 48%;
+            height: 500px;
+            overflow-y: scroll;
+            white-space: pre-wrap;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        span {
+            display: inline-block;
+            width: 100%;
+        }
+    </style>
+    <main style="width:100%;">
+        <form>
+            <div>
+                <button id="button" type="submit">SUBMIT</button>
+            </div>
+        </form>
+        <section>
+            <div style="display: flex;">
+                <div style="width:40%">
+                    <div style="margin-left:20px;margin-top: 20px;" id="group2">
+                        <p><a class="btn style-btn" data-bs-toggle="collapse" href="#multiCollapseExample0" role="button" aria-expanded="true" aria-controls="multiCollapseExample0">Group 0</a></p>
+                        <div>
+                            <div class="col">
+                              <div class="multi-collapse collapse show" id="multiCollapseExample0" style="">
+                                <div class="card card-body " style="display: flex; flex-direction: column; gap: 10px;">
+                                    <p>Text1</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('new2.txt - new.txt')">new2.txt - new.txt</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text1 - text3')">text1 - text3</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text1 - text4')">text1 - text4</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text1 - text5')">text1 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text1 - text6')">text1 - text6</a>
+                                    </div>
+                                    <p>Text2</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text2 - text3')">text2 - text3</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text2 - text4')">text2 - text4</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text2 - text5')">text2 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text2 - text6')">text2 - text6</a>
+                                    </div>
+                                    <p>Text3</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text3 - text4')">text3 - text4</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text3 - text5')">text3 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text3 - text6')">text3 - text6</a>
+                                    </div>
+                                    <p>Text4</p>
+                                    <div class="button-container" style="display: flex; justify-content: space-between; flex-wrap: nowrap; width: 100%;overflow-x: auto;">
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text4 - text5')">text4 - text5</a>
+                                        <a class="btn style-btn" role="button" style="flex: 1; margin: 0 10px; white-space: nowrap; text-align: center;" onclick="docCompare('text4 - text6')">text4 - text6</a>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div style="width: 60%;margin-left:20px;margin-top: 20px;justify-content: center;align-items: center;" id="analysis">
+                    <h5 style="color: gray;">Click on pairs for analysis</h5>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- <button style="position:inherit;" class="uploadbutton1" type="submit" onclick="upload1()">Upload1</button> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script> -->
+    <script>
+        function docCompare(pair){
+            console.log("docCompare.ejs:",pair)
+            getCode(pair)
+        }
+
+        function getCode(pair){
+            item = []
+            const formData = new FormData();
+            formData.append("pair", pair);
+            var data={docs:pair};
+            fetch('http://127.0.0.1:5000/analysis', {
+                method: 'POST',
+                body: formData, // Payload is formData object
+            })
+                .then(res => res.json())
+                .then(data => {
+                    //console.log("doccompare.ejs:",data)
+                    // document.getElementById("analysis").innerHTML = `
+                    //     ${groupItemsAnalysis(data)}
+                    //     `;
+                    item = [data[0],data[1],data[2]]
+                    file1_html = item[0]
+            file2_html = item[1]
+            similarities = item[2]
+            document.getElementById("analysis").innerHTML = `
+                <div class="container" style="display: flex;justify-content: space-between;">
+                    <div class="code-box" style="width: 48%;height: 500px;overflow-y: scroll;white-space: pre-wrap;background-color: #f5f5f5;padding: 10px;border: 1px solid #ddd;box-sizing: border-box;">${file1_html}</div>
+                    <div class="code-box" style="width: 48%;height: 500px;overflow-y: scroll;white-space: pre-wrap;background-color: #f5f5f5;padding: 10px;border: 1px solid #ddd;box-sizing: border-box;">${file2_html}</div>
+                </div>
+                <div><h1>Similarities : ${similarities}</h1></div>`;
+                    //console.log(item)
+                });
+            //return item
+        }
+    </script>
+</body>
+
+
+</html>

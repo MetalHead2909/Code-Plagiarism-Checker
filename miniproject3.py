@@ -13,6 +13,7 @@ import warnings
 import io
 import tokenize
 warnings.filterwarnings("ignore")
+import time
 
 #sample_files = [doc for doc in os.listdir() if doc.endswith('.txt')]
 #documents = [open(File).read() for File in sample_files]
@@ -243,6 +244,9 @@ def codingplagiarismcheck(check):
         str1 = str1[:-1]
         return str1
     #C Preprocessing
+
+    start_time = time.time()
+
     def preprocessing_c(prog):
         flag1 = 0  # to check if a data type is encountered 
         loc = 0 # to store the index of first occurence of single line comment
@@ -383,19 +387,24 @@ def codingplagiarismcheck(check):
             t = (i,j)
             if t not in plagiarism_indices:
                 similarity_matrix[i][j] = 0.02
-    print(similarity_matrix)
+    # print(similarity_matrix)
 
     # K-means clustering with silhouette score for determining number of clusters
     max_clusters = len(documents)
     best_silhouette_score = -1
     best_num_clusters = len(documents) #change made
-    for num_clusters in range(2, max_clusters):
+    for num_clusters in range(2, max_clusters):#max_clusters added max_clusters+1
         kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(similarity_matrix)
         cluster_labels = kmeans.labels_
         silhouette_avg = silhouette_score(similarity_matrix, cluster_labels)
+        # print("=================================================================")
+        # print("Cluster Labels: ",cluster_labels,"\tSilhoutte Score: ",silhouette_avg,"\tClusters : ",num_clusters)
+        # print("=================================================================")
         if silhouette_avg > best_silhouette_score:
             best_silhouette_score = silhouette_avg
             best_num_clusters = num_clusters
+    
+    print("\nBest Silhouette Score: ",best_silhouette_score,"\tBest Num Clusters: ",best_num_clusters)
 
     # Apply K-means clustering with the determined number of clusters
     kmeans = KMeans(n_clusters=best_num_clusters, random_state=0).fit(similarity_matrix)
@@ -421,6 +430,9 @@ def codingplagiarismcheck(check):
     #sample_files = ['DividenConquer.txt','BranchnBound2.txt','dijkstra2.txt','DividenConquer2.txt','dijkstra.txt','BranchnBound.txt']
     #results = [ [ 1, 4 ], [ 2, 6 ], [ 3, 5 ] ]
     #results = [ [ 'DividenConquer.txt', 'DividenConquer2.txt' ], [ 'BranchnBound2.txt', 'BranchnBound.txt' ], [ 'dijkstra2.txt', 'dijkstra.txt' ] ]
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("Execution Time for Finding Code Plagirarim: ",execution_time)
     result = []
     docresult = []
     for i in subgroups:
