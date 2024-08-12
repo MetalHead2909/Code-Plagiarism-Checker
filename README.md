@@ -9,3 +9,4 @@ To run the code
 4. In termina, run : node app.js
 5. In another terminal, run: python app.py
 6. Go to localhost:5000 
+7. Upload the files in 'testuploads' for diffchecker
